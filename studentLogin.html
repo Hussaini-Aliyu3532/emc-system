@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            margin-top: 10%;
+            background-color: #f3f3f3;
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            width: 400px;
+            background-color: #fff;
+            border-radius: 10px;
+        }
+        h2{
+            text-align: center;
+            margin: 30px 0;
+            color: darkgreen;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input{
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+        input:focus {
+            border: 1.5px solid skyblue;
+            outline: 0;
+        }
+        button{
+            color: #fff;
+            padding: 10px 0;
+            background-color: green;
+            border-radius: 8px;
+            border: none;
+            font-size: 1.2rem;
+        }
+        button:hover{
+            background-color: #125812;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Login</h2>
+        <form action="" id="studentLogin">
+            <label for="matrix">Matrix Number</label>
+            <input type="text" id="matrix" placeholder="Enter Matric Number" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter password" required>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        const matrixInput = document.getElementById('matrix');
+        const passwordInput = document.getElementById('password')
+        const loginForm = document.getElementById('studentLogin');
+        
+        loginForm.addEventListener('submit', (e)=>{
+            e.preventDefault();
+            
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            
+            const student = users.find(s => 
+            s.role === 'student' && 
+            s.matrix.trim().toLowerCase() === matrixInput.value.trim().toLowerCase() &&
+            s.password === passwordInput.value
+            );
+
+            if(!student || student.status !== 'active'){
+                alert('invalid credencials or user inactive');
+                return;
+            }
+            
+            localStorage.setItem('currentUser', JSON.stringify(student));
+
+            window.location.href = 'dashboards/studentDashboard.html';
+        });
+        setTimeout(()=>{matrixInput.focus()},100);
+    </script>
+</body>
+</html>

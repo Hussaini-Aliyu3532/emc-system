@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invigilator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../../styles/dashStyle.css" />
+  </head>
+  <body data-role="invigilator">
+    <aside class="sidebar">
+      <div class="side-header">
+        <h2>EMC Invigilator</h2>
+      </div>
+      <ul>
+        <li>
+          <a href="../invigilatorDash.html"
+            ><i class="fa fa-tachometer" aria-hidden="true"></i>Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="reportCases.html" class="active-link"
+            ><i class="fa-regular fa-file"></i>Report Cases</a
+          >
+        </li>
+        <li>
+          <a href="./myreport.html"
+            ><i class="fa-regular fa-location"></i>My Report</a
+          >
+        </li>
+        <li>
+          <a href="./settings.html"
+            ><i class="fa-solid fa-gears"></i>Settings</a
+          >
+        </li>
+        <li>
+          <a id="logout"
+            ><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a
+          >
+        </li>
+      </ul>
+    </aside>
+
+    <div class="main">
+      <div class="header">
+        <i class="fa fa-bars menu" aria-hidden="true"></i>
+        <h2> Student Information</h2>
+      </div>
+      
+      <div class="report">
+        <form action="" id="report-form">
+          <h3>Report Examination Misconduct Cases</h3>
+
+          <label for="studentSearch">Student ID</label>
+          <input type="search" id="studentSearch" placeholder="Search name / matrix" required autocomplete="off">
+          <label for="matrix">Matrix Number</label>
+          <input type="text" id="matrix" placeholder="Matrix No." readonly>
+
+          <div class="studentResults"></div>
+
+          <label for="">Faculty</label>
+          <select id="faculty">
+            <option value="" disabled selected>Select Faculty</option>
+          </select>
+
+          <label for="">Department</label>
+          <select id="department" disabled required>
+            <option value="">Select Department</option>
+          </select>
+
+          <label for="">Course</label>
+          <select id="course" disabled required>
+            <option value="">Select Course</option>
+          </select>
+
+          <label>Exam Date</label>
+          <input type="date" id="exam_date" required>
+
+          <label>Exam Time</label>
+          <input type="time" id="exam_time" required>
+
+          <select id="misconduct" required>
+            <option value="" selected disabled>Misconduct Type</option>
+            <option value="Unautorize Material">Unautorize Material</option>
+            <option value="Communication">Communication</option>
+            <option value="Sharing Booklet">Sharing Booklet</option>
+            <option value="Shooting Answer">Shooting Answer</option>
+            <option value="Looking from Others">Looking from Others</option>
+          </select>
+
+          <select id="venue" required>
+            <option value="" selected disabled>Exam Venue</option>
+            <option value="Hall A">Hall A</option>
+            <option value="Hall B">Hall B</option>
+            <option value="Hall C">Hall C</option>
+            <option value="Hall D">Hall D</option>
+            <option value="Hall E">Hall E</option>
+          </select>
+
+          <textarea name="" id="describe" rows="5" placeholder="describe more detail"></textarea>
+
+          <div class="input-group">
+          <label for="file">Upload Evidence</label>
+          <input type="file" name="" id="file" style="border: none; outline: none;" required>
+          </div>
+
+          <button type="submit" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="../../utilityJs/dash.js"></script>
+    <script type="module" src="../../utilityJs/reportCase.js"></script>
+  </body>
+</html>

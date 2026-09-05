@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMC SYSTEM V1</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            background: #fafafa;
+        }
+        .main{
+            text-align: center;
+        }
+        .nav{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background: linear-gradient(45deg, #147614, #8a2be2);
+            color: #fff;
+        }
+        .brand{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo{
+            background-image: url(img/logo.jpeg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        .nav ul{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            list-style: none;
+            width: 60%;
+        }
+        li a{
+            text-decoration: none;
+            color: #fff;
+            font-width: bold;
+            &:hover{color: lightgreen;}
+        }
+        .banner{
+            background-image: url(img/udus.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 350px;
+            color: white;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+            
+            button{margin-top: 60px;}
+        }
+        h1{
+            margin-top: 50px;
+        }
+        button{
+            padding: 10px 15px;
+            background: linear-gradient(45deg, #147614, #8a2be2);
+            color: #fff;
+            border-radius: 20px;
+            border: none;
+            font-size: 1.2rem;
+        }
+        button:hover{background: green}
+        .system{
+            margin-top: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            button{
+                color: #147614;
+                background: #f3f3f3;
+                border: 1px solid green;
+                transition: background 0.3s;
+                &:hover{background: green; color: #fff;}
+            }
+        }
+        h2{
+            color: #8a2be2;
+        }
+        .underl{
+            height: 5px;
+            width: 80px;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #147614, #8a2be2);
+        }
+        header{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #users-grid{display: grid; grid-template-columns: repeat(auto-fit, 1fr); width: 100%;}
+        .user{
+            margin-top: 30px;
+            padding: 30px 0;
+            border-top: 5px solid green;
+            border-radius: 20px;
+            background: #fff;
+            box-sizing: 0 5px 10px 15px rgb(0,0,0,0.15);
+            width: 400px;
+            transition: transform 0.3s;
+            h3{margin-top: 50px;}
+        }
+        .fa-3x{color: #8a2be2; margin-top: 30px;}
+        .user:hover{transform: translatey(-4px);}
+        .iconic{
+            margin-top: 30px;
+        }
+        p{margin: 10px 0;}
+        footer{
+            margin-top: 20px;
+            text-align: center;
+            background: linear-gradient(45deg, #147614, #8c086f);
+            padding: 30px 0;
+            color: #fff;
+        }
+        @media(width: 700px) {
+            #users-grid{grid-template-columns: 1fr;}
+        }
+        @media (width: 800px) {
+            #users-grid{grid-template-columns: repeat(4, 1fr);}
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="brand"><div class="logo"></div><h2 style="color: #fff;">EMC | UDUS</h2></div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#users">Users</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#access">Access</a></li>
+        </ul>
+    </nav>
+    
+    <div class="main">
+
+    <div class="banner">
+        <h1>Examination Misconduct Committee</h1>
+        <h3>Online Case Reporting & Management System Usman Danfodiyo University, Sokoto</h3>
+
+        <button onclick="redirect()">Report Case</button>
+    </div>
+
+    <div class="system" id="about">
+        <header>
+        <h2>system Overview</h2>
+        <span class="underl"></span>
+        </header>
+
+        <p>This system enhances transparency, accountability and efficiency in managing examination misconduct cases at Usman Danfodiyo University, Sokoto.</p>
+    </div>
+
+    <div class="system" id="users">
+        <header>
+        <h2>system Users</h2>
+        <span class="underl"></span>
+        </header>
+
+        <div class="users-grid">
+        <div class="user">
+            <i class="fa fa-shield fa-3x" aria-hidden="true"></i>
+            <h3>Administrators</h3>
+            <p>Manage users, cases, and reports.</p>
+        </div>
+
+        <div class="user">
+            <i class="fa fa-users fa-3x" aria-hidden="true"></i>
+            <h3>EMC Committee</h3>
+            <p>Review & decide case outcomes.</p>
+        </div>
+
+        <div class="user">
+            <i class="fa fa-male fa-3x" aria-hidden="true"></i>
+            <h3>Invigilator</h3>
+            <p>Report cases, Track Own Cases</p>
+        </div>
+
+        <div class="user">
+            <i class="fa fa-graduation-cap fa-3x" aria-hidden="true"></i>
+            <h3>Students</h3>
+            <p>Track case status using admission number.</p>
+        </div>
+        </div>
+    </div>
+
+    <div class="system" id="process">
+        <header>
+        <h2>Operational Flow</h2>
+        <span class="underl"></span>
+        </header>
+
+        <div class="iconic">
+            <i class="far fa-clipboard fa-3x" aria-hidden="true"></i>
+            <h4>Case Submission</h4>
+        </div>
+
+        <div class="iconic">
+            <i class="fa fa-search fa-3x" aria-hidden="true"></i>
+            <h4>Investigation</h4>
+        </div>
+
+        <div class="iconic">
+            <i class="far fa-check-circle fa-3x" aria-hidden="true"></i>
+            <h4>Decision</h4>
+        </div>
+        <div class="iconic">
+            <i class="far  fa-bell fa-3x" aria-hidden="true"></i>
+            <h4>Notification</h4>
+        </div>
+    </div>
+
+    <div class="system" id="access">
+        <header>
+        <h2>System Access</h2>
+        <span class="underl"></span>
+        </header>
+
+        <p>Students can check their EMC case status by entering their Matric Number.</p>
+
+        <button onclick="access()">Student Case Status</button>
+    </div>
+    </div>
+
+    <footer>&copy; 2026 Usman Danfodiyo University, Sokoto | EMC System</footer>
+
+    <script>
+        function redirect(){
+            window.location.href = "login.html";
+            console.log('ok')
+        }
+        function access(){
+            window.location.href = 'studentLogin.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invigilator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../styles/dashStyle.css" />
+  </head>
+  <body data-role="invigilator" data-page="invDash">
+    <aside class="sidebar">
+      <div class="side-header">
+        <h2>EMC Invigilator</h2>
+      </div>
+      <ul>
+        <li>
+          <a href="invigilatorDash.html" class="active-link"
+            ><i class="fa fa-tachometer" aria-hidden="true"></i>Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="./invigilator/reportCases.html"
+            ><i class="fa-regular fa-file"></i>Report Cases</a
+          >
+        </li>
+        <li>
+          <a href="./invigilator/myreport.html"
+            ><i class="fa-regular fa-location"></i>My Report</a
+          >
+        </li>
+        <li>
+          <a href="./invigilator/settings.html"
+            ><i class="fa-solid fa-gears"></i>Settings</a
+          >
+        </li>
+        <li>
+          <a id="logout"
+            ><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a
+          >
+        </li>
+      </ul>
+    </aside>
+
+    <div class="main">
+      <div class="user">
+        <div class="welcome">
+          Welcome, user hope you're enjoying our services.
+        </div>
+        <span class="profile avatar">AH</span>
+      </div>
+      <div class="header">
+        <i class="fa fa-bars menu" aria-hidden="true"></i>
+        <h2>Invigilator Dashboard</h2>
+      </div>
+      <div class="container">
+        <div class="box">
+          <span>All</span>
+          <h2 id="all">15</h2>
+        </div>
+        <div class="box">
+          <span>Pending</span>
+          <h2 id="pending">3</h2>
+        </div>
+        <div class="box">
+          <span>Under Review</span>
+          <h2 id="review">4</h2>
+        </div>
+        <div class="box">
+          <span>Decided</span>
+          <h2 id="decided">8</h2>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../utilityJs/dash.js"></script>
+  </body>
+</html>

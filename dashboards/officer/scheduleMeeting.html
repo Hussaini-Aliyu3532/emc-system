@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../../styles/dashStyle.css" />
+    <title>officer</title>
+</head>
+<body data-role="officer" data-page="scheduleMeeting">
+    <aside class="sidebar">
+      <div class="side-header">
+        <h2>EMC Officer</h2>
+      </div>
+      <ul>
+        <li>
+          <a href="../officerDash.html"
+            ><i class="fa fa-tachometer" aria-hidden="true"></i>Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="./viewCases.html"
+            ><i class="fa-regular fa-file"></i>View Cases</a
+          >
+        </li>
+        <li>
+          <a href="scheduleMeeting.html" class="active-link"><i class="fa-solid fa-handshake"></i>Shedule Meeting</i></a>
+        </li>
+        <li>
+          <a href="./decision.html"><i class="fa-solid fa-gavel"></i>Decision</a>
+        </li>
+        <li>
+          <a href="./settings.html"
+            ><i class="fa-solid fa-gears"></i>Settings</a
+          >
+        </li>
+        <li>
+          <a id="logout"
+            ><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a
+          >
+        </li>
+      </ul>
+    </aside>
+
+    <div class="main">
+      <div class="header">
+        <i class="fa fa-bars menu" aria-hidden="true"></i>
+      </div>
+      
+        <div class="container">
+            <div class="box">
+                <p>Upcomming Meetting</p>
+                <h2 id="upcomming">4</h2>
+            </div>
+            <div class="box">
+                <p>pending</p>
+                <h2 id="pending">8</h2>
+            </div>
+            <div class="box">
+                <p>Under Review</p>
+                <h2 id="underReview">8</h2>
+            </div>
+            <div class="box">
+                <p>decided</p>
+                <h2 id="decided">5</h2>
+            </div>
+        </div>
+      
+        <div><button><i class="fa fa-plus" aria-hidden="true"></i>Shedule Meeting</button></div>
+    <form class="scheduleForm">
+      <h3>Schedule Meeting</h3>
+      <div class="case"> Case
+        <select name="" id="select">
+          <option value="" selected disabled>select case</option>
+        </select>
+        <label for="date">Date</label>
+        <input type="date" name="" id="date">
+        <label for="time">Time</label>
+        <input type="time" name="" id="time">
+        <label for="venue">Venue</label>
+        <input type="text" id="venue">
+        <label for="note">Notes</label>
+        <textarea name="" id="note"></textarea>
+        <button id="cancil">cancil</button>
+        <button type="submit">Schedule</button>
+      </div>
+    </form>
+
+    <table>
+      <head>Upcomming Meetings</head>
+      <thead>
+        <tr>
+          <th>Case ID</th>
+          <th>Student</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Venue</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>
+
+    <script type="module" src="../../utilityJs/dash.js"></script>
+</body>
+</html>

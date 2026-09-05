@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="styles/style.css" />
+    <title>Manage Officers</title>
+  </head>
+  <body data-role="officer">
+    <aside class="sidebar">
+      <div class="side-header">
+        <h2>EMC Admin</h2>
+      </div>
+      <ul>
+        <li>
+          <a href="./adminDashboard.html"
+            ><i class="fa fa-tachometer" aria-hidden="true"></i>Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="manageOfficer.html"
+            ><i class="fa fa-user" aria-hidden="true"></i>Manage EMC Officers</a
+          >
+        </li>
+        <li>
+          <a href="./manageStudent.html"
+            ><i class="fa fa-graduation-cap" aria-hidden="true"></i>Manage
+            Students</a
+          >
+        </li>
+        <li>
+          <a href="./manageInvigilator.html"
+            ><i class="fa fa-users" aria-hidden="true"></i>Manage
+            Invigilators</a
+          >
+        </li>
+        <li>
+          <a id="logout"
+            ><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a
+          >
+        </li>
+      </ul>
+    </aside>
+
+    <div class="main">
+      <div class="overlay">
+        <div class="popUp">
+          <header>
+            <h3>Add EMC Officer</h3>
+            <i id="x">X</i>
+          </header>
+          <form action="" class="popForm">
+            <div class="input-group">
+              <label for="name">Full Name</label>
+              <input type="text" name="name" id="name" required />
+            </div>
+
+            <div class="input-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="input-group">
+              <label for="password">password</label>
+              <input type="password" name="password" id="password" required />
+            </div>
+
+            <hr />
+            <button id="save">Save</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="header">
+        <i class="fa fa-bars menu inactive" aria-hidden="true"></i>
+        <h2>Manage EMC Officers</h2>
+      </div>
+      <button class="addBtn">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i> Add EMC Officer
+      </button>
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Matrix</th>
+            <th>Account Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody></tbody>
+      </table>
+
+      <footer>
+        &copy; 2026 Usman Danfodio University, Sokoto | EMC System
+      </footer>
+    </div>
+
+    <script type="module" src="utilityJs/app.js?v3"></script>
+  </body>
+</html>
