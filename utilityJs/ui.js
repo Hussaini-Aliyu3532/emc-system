@@ -117,6 +117,7 @@ export async function reloadOffDashTable(caseItem) {
 
 export async function reloadViewCaseTable(caseItem) {
   const tr = document.createElement("tr");
+  tr.dataset.id = caseItem.case_id;
   tr.innerHTML = `
       <td>${caseItem.case_id}</td>
       <td>${caseItem.student_id}</td>
@@ -126,6 +127,18 @@ export async function reloadViewCaseTable(caseItem) {
       <td class='action'><button class='view'>view</button></td>
     `;
     document.querySelector('tbody').append(tr);
+    tr.addEventListener('click', (e) => {
+      if (e.target.classList.contains('view')){
+        const displayProp = viewDetail(caseItem);
+        document.querySelector('.popUp').innerHTML = displayProp;
+        document.querySelector('.overlay').classList.add('enable');
+        
+        document.querySelector('.cancil').addEventListener('click', close);
+      }
+      else{
+        close();
+      }
+    });
 }
 
 export async function reloadScheduleMeetingTable(caseItem) {
@@ -237,4 +250,42 @@ export async function loadCourses() {
     });
     course.disabled = false;
   });
+}
+
+function close(){
+  document.querySelector('.overlay').classList.remove('enable');
+}
+
+function viewDetail(par){
+  const {case_id, student_id, faculty_id, department_id, course_id, exam_date, exam_time, venue, misconduct_type, description, reported_by, status, priority} = par;
+  return `
+    <div class='group'>
+      <div>Case: ${case_id}</div>
+    </div>
+    <span class='cancil'>X</span>
+    <hr>
+    <div class='group'>
+      <div>Student: ${student_id}</div>
+      <div>Matrix: NULL</div>
+      <div>Faculty: ${faculty_id}</div>
+      <div>Department: ${department_id}</div>
+      <div>Course: ${course_id}</div>
+    </div>
+    <div class='group'>
+      <div>Exam Date: ${exam_date}</div>
+      <div>Exam Time: ${exam_time}</div>
+      <div>Venue: ${venue}</div>
+    </div>
+    <div class='group'>
+      <div>Misconduct: ${misconduct_type}</div>
+      <div>Description: ${description}</div>
+      <div>Reported By: ${reported_by}</div>
+    </div>
+    <div class='group'>
+      <div>Status: ${status}</div>
+      <div>Priority: ${priority}</div>
+    </div>
+    <hr>
+    <button>Take Case</button>
+  `;
 }
