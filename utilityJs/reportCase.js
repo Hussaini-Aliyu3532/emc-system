@@ -1,5 +1,4 @@
 const report = document.getElementById("report-form");
-document.getElementById("studentSearch").focus();
 
 const search = document.getElementById("studentSearch");
 const matrix = document.getElementById("matrix");
@@ -17,7 +16,7 @@ search.addEventListener("input", async () => {
   result.innerHTML = "";
 
   students.forEach((student) => {
-    if (student < 2)return;
+    if (value < 2)return;
 
     const div = document.createElement("div");
     div.style.cursor = 'pointer';

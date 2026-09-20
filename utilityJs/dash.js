@@ -6,15 +6,17 @@ document.querySelector(".menu").addEventListener("click", toggle);
 document.getElementById("logout").addEventListener("click", logOut);
 
 async function initDash() {
-  const users = await getUsers();
   const currentUser = await savedUser();
+  
   const currentPage = document.body.dataset.page;
   const userRole = document.body.dataset.role;
-  const cases = await getCases();
 
   const allowed = requiredRole(userRole, currentUser);
 
   if (!allowed) return;
+
+  const users = await getUsers();
+  const cases = await getCases();
 
   renderProfile(currentUser);
   switch (userRole) {
@@ -22,7 +24,7 @@ async function initDash() {
       renderAdminDash(users);
       break;
     case "officer":
-      renderOfficer(cases, currentPage);
+      renderOfficer(cases, currentPage, currentUser);
       break;
     case "invigilator":
       renderInvigilator(cases, currentPage);

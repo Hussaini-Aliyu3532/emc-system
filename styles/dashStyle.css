@@ -51,11 +51,12 @@ li a:hover {
   background-color: #333;
 }
 li a.active {
-  background-color: #333;
+  background: linear-gradient(45deg, green, blueviolet);
 }
 .active-link {
-  background-color: #333;
+  background: linear-gradient(45deg, green, blueviolet);
 }
+#logout{cursor: pointer;}
 .user {
   display: flex;
   justify-content: space-between;
@@ -142,6 +143,7 @@ li a.active {
 .main {
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
 }
 .report {
   width: 100%;
@@ -205,6 +207,7 @@ button {
   background: green;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
   color: #ffff;
   white-space: nowrap;
   transition: background 0.3s;
@@ -219,6 +222,29 @@ button:hover {
   input {
     width: 100%;
   }
+}
+tr .viewed{
+  background:  #face30;
+}
+tr .status.pending{
+  padding: 7px 10px;
+  background: #f6db64;
+  border-radius: 8px;
+  color: white;
+}
+tr .status{
+  padding: 7px 10px;
+  border-radius: 8px;
+  color: white;
+}
+tr .status.pending{
+  background: yellowgreen;
+}
+tr .status.review{
+  background: #f6db64;
+}
+tr .status.decide{
+  background: #eb8697;
 }
 .overlay{
   position: fixed;
@@ -243,6 +269,7 @@ button:hover {
   hr{margin: 10px;}
 }
 .enable{visibility: visible;}
+.hideBtn #takeCase{display: none;}
 .cancil{
   position: absolute;
   top: 5px;
@@ -279,6 +306,7 @@ table {
 table tr:nth-child(even) {
   background: #fff;
 }
+table caption{font-size: 1.3rem; margin-bottom: 15px;}
 table,
 tr,
 thead,
@@ -295,6 +323,21 @@ th {
 }
 td {
   margin: 10px;
+}
+.bottom{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-left: 4px solid yellowgreen;
+  border-radius: 5px;
+  .legend{display: flex; flex-direction: column; gap: 8px;}
+  button{
+    background: greenyellow;
+    color: #222;
+    margin-right: 10px;
+    &:hover{background: #97c932;}
+  }
 }
 @media (min-width: 800px) {
   .menu {

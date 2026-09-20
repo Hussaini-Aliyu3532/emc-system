@@ -13,7 +13,7 @@
     />
     <link rel="stylesheet" href="../../styles/dashStyle.css" />
   </head>
-  <body data-role="invigilator">
+  <body data-role="invigilator" data-page="myreport">
     <aside class="sidebar">
       <div class="side-header">
         <h2>EMC Invigilator</h2>
@@ -72,12 +72,15 @@
         </div>
       </div>
 
+      <div class="overlay"> <div class="popUp hideBtn"></div> </div>
+
         <table>
           <thead>
             <tr>
               <th>case_code</th>
-              <th>matrix_id</th>
-              <th>student</th>
+              <th>student_ID</th>
+              <th>exam_date</th>
+              <th>exam_time</th>
               <th>status</th>
               <th>action</th>
             </tr>

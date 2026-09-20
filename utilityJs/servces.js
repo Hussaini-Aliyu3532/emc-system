@@ -52,3 +52,48 @@ export async function getCases() {
     
     return cases;
 }
+export async function takeCase(case_id) {
+  const res = await fetch("/emc-system/api/session.php");
+  const data = await res.json();
+
+  const caseData = await fetch("/emc-system/api/reportCase.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ assigned: data.user.id, case_id: case_id }),
+  });
+
+  const result = await caseData;
+  close();
+}
+
+export function close() {
+  document.querySelector(".overlay").classList.remove("enable");
+}
+
+export async function postMeeting(caseID) {
+    const meeting_date = document.getElementById("date");
+    const meeting_time = document.getElementById("time");
+    const venue = document.getElementById("venue");
+    
+    const form = document.getElementById('schedule');
+    form.addEventListener('submit', async(e)=>{
+        e.preventDefault();
+
+        const meetingInfo = {
+        meeting_date: meeting_date.value,
+        meeting_time: meeting_time.value,
+        venue: venue.value,
+        case_id: caseID
+        };
+
+        const res = await fetch('/emc-system/api/reportCase.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(meetingInfo)
+        });
+
+        const data = await res.text();
+        console.log('ROW DATA: ',meetingInfo);
+        console.log('SERVER RESPONSE: ',data);
+    });
+}

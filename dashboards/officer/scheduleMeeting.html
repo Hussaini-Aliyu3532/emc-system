@@ -49,58 +49,46 @@
     </aside>
 
     <div class="main">
-      <div class="header">
-        <i class="fa fa-bars menu" aria-hidden="true"></i>
+      <div class="main-header">
+        <span>
+          <div class="header">
+            <i class="fa fa-bars menu" aria-hidden="true"></i>
+          </div>
+          <h2>Schedule Meeting</h2>
+        </span>
+        <span>
+          <span class="user">user</span>
+          <span class='icon'>icon</span>
+        </span>
       </div>
       
-        <div class="container">
-            <div class="box">
-                <p>Upcomming Meetting</p>
-                <h2 id="upcomming">4</h2>
-            </div>
-            <div class="box">
-                <p>pending</p>
-                <h2 id="pending">8</h2>
-            </div>
-            <div class="box">
-                <p>Under Review</p>
-                <h2 id="underReview">8</h2>
-            </div>
-            <div class="box">
-                <p>decided</p>
-                <h2 id="decided">5</h2>
-            </div>
-        </div>
-      
-        <div><button><i class="fa fa-plus" aria-hidden="true"></i>Shedule Meeting</button></div>
-    <form class="scheduleForm">
-      <h3>Schedule Meeting</h3>
-      <div class="case"> Case
-        <select name="" id="select">
-          <option value="" selected disabled>select case</option>
-        </select>
-        <label for="date">Date</label>
-        <input type="date" name="" id="date">
-        <label for="time">Time</label>
-        <input type="time" name="" id="time">
-        <label for="venue">Venue</label>
-        <input type="text" id="venue">
-        <label for="note">Notes</label>
-        <textarea name="" id="note"></textarea>
-        <button id="cancil">cancil</button>
-        <button type="submit">Schedule</button>
+      <hr>
+
+      <div class="container">
+          <div class="box">
+              <p>Under Review</p>
+              <h2 id="underReview">8</h2>
+          </div>
+          <div class="box">
+              <p>Upcomming Meetting</p>
+              <h2 id="upcomming">4</h2>
+          </div>
+          <div class="box">
+              <p>Invistigation</p>
+              <h2 id="Invistigation">5</h2>
+          </div>
       </div>
-    </form>
+      <div>Schedule meeting for cases assigned to you.</div>
+      
+    <div class="overlay"> <div class="popUp"></div> </div>
 
     <table>
-      <head>Upcomming Meetings</head>
       <thead>
         <tr>
           <th>Case ID</th>
           <th>Student</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Venue</th>
+          <th>Exam Date</th>
+          <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>

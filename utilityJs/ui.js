@@ -1,4 +1,5 @@
-import { getCases } from "./servces.js";
+import { redirectByRole } from "./auth.js";
+import { getCases, takeCase, close, postMeeting } from "./servces.js";
 
 export function renderUser(user) {
   const tr = document.createElement("tr");
@@ -104,18 +105,46 @@ export function renderAdminDash(users) {
   reloadTable();
 }
 
-export async function reloadOffDashTable(caseItem) {
+function reloadOffDashTable(caseItem) {
   const tr = document.createElement("tr");
+  tr.dataset.id = caseItem.case_id;
+
   tr.innerHTML = `
       <td>${caseItem.case_id}</td>
       <td>${caseItem.student_id}</td>
-      <td>${caseItem.status}</td>
+      <td>${caseItem.reported_by}</td>
+      <td>${caseItem.exam_date}</td>
+      <td><span class='status ${caseItem.status}'>${caseItem.status}</span></td>
       <td class='action'><button class='view'>view</button></td>
     `;
-    document.querySelector('tbody').append(tr);
+
+  if (caseItem.assigned_officer) {
+    tr.querySelector(".view").classList.add("viewed");
+  }
+
+  document.querySelector("tbody").append(tr);
+
+  tr.addEventListener("click", (e) => {
+    if (e.target.classList.contains("view")) {
+      console.log("btn clicked");
+      document.querySelector(".popUp").innerHTML = viewDetail(caseItem);
+      document.querySelector(".overlay").classList.add("enable");
+
+      const takeButton = document.getElementById("takeCase");
+      if (caseItem.assigned_officer) {
+        takeButton.disabled = true;
+        takeButton.textContent = "assigned";
+        takeButton.style.background = "#878f25";
+      } else {
+        takeButton.addEventListener("click", () => takeCase(tr.dataset.id));
+      }
+
+      document.querySelector(".cancil").addEventListener("click", close);
+    }
+  });
 }
 
-export async function reloadViewCaseTable(caseItem) {
+function reloadViewCaseTable(caseItem) {
   const tr = document.createElement("tr");
   tr.dataset.id = caseItem.case_id;
   tr.innerHTML = `
@@ -123,55 +152,166 @@ export async function reloadViewCaseTable(caseItem) {
       <td>${caseItem.student_id}</td>
       <td>${caseItem.reported_by}</td>
       <td>${caseItem.exam_date}</td>
-      <td>${caseItem.status}</td>
+      <td><span class='status ${caseItem.status}'>${caseItem.status}</span></td>
       <td class='action'><button class='view'>view</button></td>
-    `;
-    document.querySelector('tbody').append(tr);
-    tr.addEventListener('click', (e) => {
-      if (e.target.classList.contains('view')){
-        const displayProp = viewDetail(caseItem);
-        document.querySelector('.popUp').innerHTML = displayProp;
-        document.querySelector('.overlay').classList.add('enable');
-        
-        document.querySelector('.cancil').addEventListener('click', close);
+  `;
+
+  if (caseItem.assigned_officer) {
+    tr.querySelector(".view").classList.add("viewed");
+  }
+
+  document.querySelector("tbody").append(tr);
+  tr.addEventListener("click", (e) => {
+    console.log("row clicked.");
+
+    if (e.target.classList.contains("view")) {
+      console.log("btn clicked");
+      document.querySelector(".popUp").innerHTML = viewDetail(caseItem);
+      document.querySelector(".overlay").classList.add("enable");
+
+      const takeButton = document.getElementById("takeCase");
+      if (caseItem.assigned_officer) {
+        takeButton.disabled = true;
+        takeButton.textContent = "assigned";
+        takeButton.style.background = "#878f25";
+      } else {
+        takeButton.addEventListener("click", () => {
+          takeCase(tr.dataset.id);
+          location.href = "/emc-system/dashboards/officer/scheduleMeeting.html";
+        });
       }
-      else{
-        close();
-      }
-    });
+
+      document.querySelector(".cancil").addEventListener("click", close);
+    }
+  });
 }
 
-export async function reloadScheduleMeetingTable(caseItem) {
+function reloadScheduleMeetingTable(caseItem) {
   const tr = document.createElement("tr");
+  tr.dataset.id = caseItem.case_id;
   tr.innerHTML = `
       <td>${caseItem.case_id}</td>
       <td>${caseItem.student_id}</td>
       <td>${caseItem.exam_date}</td>
-      <td>${caseItem.exam_time}</td>
-      <td>${caseItem.venue}</td>
+      <td><span class='status ${caseItem.status}'>${caseItem.status}</span></td>
       <td class='action'><button class='view'>view</button></td>
     `;
-    document.querySelector('tbody').append(tr);
+  document.querySelector("tbody").append(tr);
+
+  if (caseItem.assigned_officer) {
+    tr.querySelector('.view').classList.add('viewed');
+  }
+  if (caseItem.meeting_date) {
+    tr.querySelector(".view").style.background = '#a053e8';
+    tr.querySelector(".status").style.background = "#ba8ae7";
+  }
+
+  tr.addEventListener("click", (e) => {
+    if (e.target.classList.contains("view")) {
+      document.querySelector(".popUp").innerHTML = viewSchedule(caseItem);
+      document.querySelector(".overlay").classList.add("enable");
+
+      document.querySelector(".cancil").addEventListener("click", close);
+      const goto = document.getElementById("goto");
+
+      if (caseItem.meeting_date) {
+        goto.disabled = true;
+        goto.style.background = "#878f25";
+      } else {
+        goto.addEventListener("click", () => {
+          document.querySelector(".popUp").innerHTML = showForm();
+          document.querySelector(".overlay").classList.add("enable");
+
+          document.querySelector(".cancil").addEventListener("click", close);
+
+          postMeeting(tr.dataset.id);
+        });
+      }
+    }
+  });
 }
 
-export async function renderOfficer(cases, currentPage) {
+export async function renderOfficer(cases, currentPage, currentUser) {
   switch (currentPage) {
     case "offDash":
-      cases.forEach(reloadOffDashTable);
+      cases.slice(0, 5).forEach(reloadOffDashTable);
+      document
+        .querySelector(".bottom button")
+        .addEventListener(
+          "click",
+          () =>
+            (location.href = "/emc-system/dashboards/officer/viewCases.html"),
+        );
       break;
     case "viewCases":
       cases.forEach(reloadViewCaseTable);
       break;
     case "scheduleMeeting":
-      cases.forEach(reloadScheduleMeetingTable);
+      cases
+        .filter(
+          (cases) =>
+            cases.assigned_officer === currentUser.id &&
+            cases.status === "under review",
+        )
+        .forEach(reloadScheduleMeetingTable);
       break;
+    case "decision":
+      alert("decision");
+      break;
+    case "settings":
+      alert("settings");
+      break;
+    default:
+      redirectByRole(document.body.dataset.role);
   }
 }
 
-export function renderInvigilator(user) {
-  loadFaculties();
-  loadDepartments();
-  loadCourses();
+function reloadMyCasesTable(caseItem) {
+  const tr = document.createElement("tr");
+  tr.dataset.id = caseItem.case_id;
+  tr.innerHTML = `
+      <td>${caseItem.case_id}</td>
+      <td>${caseItem.student_id}</td>
+      <td>${caseItem.exam_date}</td>
+      <td>${caseItem.exam_time}</td>
+      <td><span class='status ${caseItem.status}'>${caseItem.status}</span></td>
+      <td class='action'><button class='view'>view</button></td>
+    `;
+  document.querySelector("tbody").append(tr);
+
+  if (caseItem.assigned_officer) {
+    tr.querySelector(".view").classList.add("viewed");
+  }
+
+  tr.addEventListener("click", (e) => {
+    if (e.target.classList.contains("view")) {
+      document.querySelector(".popUp").innerHTML = viewDetail(caseItem);
+      document.querySelector(".overlay").classList.add("enable");
+
+      document.querySelector(".cancil").addEventListener("click", close);
+    }
+  });
+}
+
+export function renderInvigilator(cases, currentPage) {
+  switch (currentPage) {
+    case "invDash":
+      cases.forEach(reloadMyCasesTable);
+      break;
+    case "reportCases":
+      loadFaculties();
+      loadDepartments();
+      loadCourses();
+      break;
+    case "myreport":
+      cases.forEach(reloadMyCasesTable);
+      break;
+    case "settings":
+      alert("settings");
+      break;
+    default:
+      redirectByRole(document.body.dataset.role);
+  }
 }
 
 export async function loadFaculties() {
@@ -252,12 +392,30 @@ export async function loadCourses() {
   });
 }
 
-function close(){
-  document.querySelector('.overlay').classList.remove('enable');
-}
+function viewDetail(param) {
+  const role = document.body.dataset.role;
+  const {
+    case_id,
+    student_id,
+    faculty_id,
+    department_id,
+    course_id,
+    exam_date,
+    exam_time,
+    venue,
+    misconduct_type,
+    description,
+    reported_by,
+    assigned_officer,
+    created_at,
+    updated_at,
+    status,
+    priority,
+  } = param;
 
-function viewDetail(par){
-  const {case_id, student_id, faculty_id, department_id, course_id, exam_date, exam_time, venue, misconduct_type, description, reported_by, status, priority} = par;
+  const pointer = role === "officer" ? reported_by : assigned_officer;
+  const action = role === "officer" ? "Reported By" : "Assigned By";
+
   return `
     <div class='group'>
       <div>Case: ${case_id}</div>
@@ -266,7 +424,7 @@ function viewDetail(par){
     <hr>
     <div class='group'>
       <div>Student: ${student_id}</div>
-      <div>Matrix: NULL</div>
+      <div>Matrix: null</div>
       <div>Faculty: ${faculty_id}</div>
       <div>Department: ${department_id}</div>
       <div>Course: ${course_id}</div>
@@ -279,13 +437,78 @@ function viewDetail(par){
     <div class='group'>
       <div>Misconduct: ${misconduct_type}</div>
       <div>Description: ${description}</div>
-      <div>Reported By: ${reported_by}</div>
+      <div>${action}: ${pointer}</div>
     </div>
     <div class='group'>
       <div>Status: ${status}</div>
+      <div>Created_at: ${created_at}</div>
+      <div>Updated_at: ${updated_at}</div>
       <div>Priority: ${priority}</div>
     </div>
     <hr>
-    <button>Take Case</button>
+    <button id='takeCase'>Take Case</button>
+  `;
+}
+
+function viewSchedule(param) {
+  const {
+    case_id,
+    student_id,
+    faculty_id,
+    department_id,
+    course_id,
+    misconduct_type,
+    description,
+    status,
+  } = param;
+
+  return `
+    <div class='group'>
+      <div>Case: ${case_id}</div>
+    </div>
+    <span class='cancil'>X</span>
+
+    <hr>
+
+    <div class='group'>
+      <div>Student: ${student_id}</div>
+      <div>Faculty: ${faculty_id}</div>
+      <div>Department: ${department_id}</div>
+      <div>Course: ${course_id}</div>
+      <div>Misconduct: ${misconduct_type}</div>
+      <div>Description: ${description}</div>
+    </div>
+    <div>Status: ${status}</div>
+    <button id='goto'>schedule</button>
+  `;
+}
+
+function showForm() {
+  return `
+    <div class='group'>
+      <header>Schedule The Meeting</header>
+    </div>
+    <span class='cancil'>X</span>
+    <hr>
+
+    <div class='group'>
+      <form id='schedule'>
+        <label>Meeting Date</label>
+        <input type='date' id='date'>
+
+        <label>Meeting Time</label>
+        <input type='time' id='time'>
+
+        <label>Venue</label>
+        <select id='venue' required>
+          <option selected disabled>Select Venue</option>
+          <option value='EMC Committee Room'>EMC Committee Room</option>
+          <option value='Staff Secteriate'>Staff Secteriate</option>
+          <option value='Security Room'>Security Room</option>
+        </select>
+
+        <button type='submit'>Schedule Meeting</button>
+      </form>
+    </div>
   `;
 }
