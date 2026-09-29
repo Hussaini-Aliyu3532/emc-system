@@ -47,9 +47,57 @@
         </li>
       </ul>
     </aside>
+
     <div class="main">
-    <div class="header">
-        <i class="fa fa-bars menu" aria-hidden="true"></i>
+    <div class="main-header">
+        <span>
+          <div class="header">
+            <i class="fa fa-bars menu" aria-hidden="true"></i>
+          </div>
+          <h2>Schedule Meeting</h2>
+        </span>
+        <span>
+          <span class="user">user</span>
+          <span class='icon'>icon</span>
+        </span>
+      </div>
+
+      <hr>
+
+      <div class="container">
+        <div class="box">
+            <p>Under Review</p>
+            <h2 id="underReview">8</h2>
+        </div>
+        
+        <div class="box">
+            <p>Invistigation</p>
+            <h2 id="Invistigation">5</h2>
+        </div>                                          
+          
+        <div class="box">
+          <p>Decided</p>
+          <h2 id="decided">6</h2>
+        </div>
+      </div>
+
+    <div>Decide the decision for cases assigned/schedule to you.</div>
+      
+    <div class="overlay"> <div class="popUp"></div> </div>
+
+    <table>
+        <thead>
+          <tr>
+            <th>Case ID</th>
+            <th>Student</th>
+            <th>Reported by</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
 
     <script type="module" src="../../utilityJs/dash.js"></script>

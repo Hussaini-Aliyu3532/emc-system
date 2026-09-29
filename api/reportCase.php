@@ -8,6 +8,28 @@ if (!$data) {
     exit;
 }
 
+$decided = $data['decided'] ?? null;
+if ($decided) {
+    $case_id = $data['case_id'];
+    $decisionNote = $data['decisionNote'];
+
+    $stmt = $conn->prepare("
+        UPDATE cases SET decision = ?, decision_notes = ?, status = 'decided' WHERE case_id = ?
+    ");
+    
+    $stmt->bind_param('sss', $decided, $decisionNote, $case_id);
+    if ($stmt->execute()) {
+        echo json_encode([
+            "success" => true,
+        ]);
+    } else {
+        echo json_encode([
+            "success" => false
+        ]);
+    }
+    exit;
+}
+
 $meeting_date = $data['meeting_date'] ?? null;
 if ($meeting_date) {
     $meeting_time = $data['meeting_time'];

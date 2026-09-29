@@ -215,14 +215,25 @@ button {
 button:hover {
   background: #458f45;
 }
-.scheduleForm {
+.popUp form {
+  width: 100%;
   display: flex;
   flex-flow: column;
   width: 400px;
   input {
     width: 100%;
   }
+  .buttons{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  #selectDecision, #decisionNote{
+    border: 1px solid #c7d3c7;
+  }
 }
+.viewScheduled{background: #a053e8;}
+.status.scheduled{background: #ba8ae7;}
 tr .viewed{
   background:  #face30;
 }
@@ -243,7 +254,14 @@ tr .status.pending{
 tr .status.review{
   background: #f6db64;
 }
-tr .status.decide{
+tr .status.scheduled {
+  background: #ba8ae7;
+}
+.view.viewScheduled {
+  background: #ba8ae7;
+}
+
+tr .status.decided{
   background: #eb8697;
 }
 .overlay{
